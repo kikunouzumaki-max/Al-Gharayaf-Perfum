@@ -1,0 +1,48 @@
+<div id="catalogue-overlay" class="fixed inset-0 bg-[#0D0A05] z-[1000] overflow-y-auto hidden opacity-0 transition-opacity duration-500">
+  
+  <!-- Overlay Navbar -->
+  <nav class="sticky top-0 w-full z-50 glass-nav py-4 section-padding border-b border-brand-gold/20">
+    <div class="max-w-7xl mx-auto px-6 flex justify-between items-center">
+      <!-- Left: Logo -->
+      <div class="flex flex-col items-start cursor-pointer transition-opacity hover:opacity-80" onclick="closeOverlay()">
+        <span class="font-arabic text-2xl md:text-3xl text-brand-gold">الغرايف</span>
+        <span class="font-display text-[10px] md:text-xs tracking-[0.2em] text-brand-cream/80 mt-1">AL GHARAYAF PERFUM</span>
+      </div>
+      
+      <!-- Center: Breadcrumbs (Hidden on very small screens, visible on md+) -->
+      <div id="overlay-breadcrumb" class="hidden md:flex items-center gap-2 text-sm text-brand-cream font-display italic">
+        <!-- Injected via JS -->
+      </div>
+
+      <!-- Right: Close & Back -->
+      <div class="flex items-center gap-6">
+        <button id="overlay-back-btn" onclick="goBack()" class="hidden text-brand-gold hover:text-brand-cream transition-colors items-center gap-2 text-sm uppercase tracking-widest font-modern">
+          <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="w-4 h-4"><path d="m15 18-6-6 6-6"/></svg>
+          <span class="hidden md:inline">Back</span>
+        </button>
+        <button id="overlay-close-btn" onclick="closeOverlay()" class="text-brand-gold hover:text-brand-cream transition-colors flex items-center gap-2 text-sm uppercase tracking-widest font-modern">
+          <span class="hidden md:inline">Close</span>
+          <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="w-5 h-5"><path d="M18 6 6 18"/><path d="m6 6 12 12"/></svg>
+        </button>
+      </div>
+    </div>
+  </nav>
+
+  <!-- Dynamic Content Area -->
+  <div id="catalogue-content" class="min-h-screen pb-24 transition-opacity duration-300">
+    <!-- View 1 & View 2 rendered here by JS -->
+  </div>
+
+</div>
+
+{% schema %}
+{
+  "name": "Catalogue Overlay",
+  "settings": [],
+  "presets": [
+    {
+      "name": "Catalogue Overlay"
+    }
+  ]
+}
+{% endschema %}
