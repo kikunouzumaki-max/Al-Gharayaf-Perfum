@@ -100,7 +100,14 @@ window.openCinematicCatalogue = function(categoryId) {
   document.body.style.overflow = 'hidden';
   document.body.style.position = 'fixed';
   document.body.style.width = '100%';
+  document.body.style.left = '0';
   document.body.style.top = `-${savedScrollY}px`;
+
+  const landingWABtn = document.querySelector('.whatsapp-float, .wa-float, a[href*="wa.me"]:not(.overlay-wa)');
+  if (landingWABtn) {
+      landingWABtn.style.display = 'none';
+      landingWABtn.dataset.wasHiddenByOverlay = 'true';
+  }
 
   const overlay = document.getElementById('cinematic-overlay');
   overlay.classList.remove('hidden');
@@ -133,6 +140,13 @@ window.closeCinematicOverlay = function() {
         document.body.style.width = '';
         document.body.style.top = '';
         window.scrollTo(0, savedScrollY);
+        
+        const landingWABtn = document.querySelector('[data-was-hidden-by-overlay="true"]');
+        if (landingWABtn) {
+            landingWABtn.style.display = '';
+            delete landingWABtn.dataset.wasHiddenByOverlay;
+        }
+
         document.getElementById('collections').scrollIntoView({behavior: 'smooth'});
         currentCategory = null;
     }, 400); // matches opacity transition
