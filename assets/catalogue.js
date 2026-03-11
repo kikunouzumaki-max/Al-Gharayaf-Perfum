@@ -97,7 +97,6 @@ window.openCinematicCatalogue = function(categoryId) {
 
   const overlay = document.getElementById('cinematic-overlay');
   overlay.classList.remove('hidden');
-  document.body.style.overflow = 'hidden';
   
   // Fade in background smoothly
   void overlay.offsetWidth; // Force reflow
@@ -122,7 +121,6 @@ window.closeCinematicOverlay = function() {
     overlay.style.opacity = '0';
     setTimeout(() => {
         overlay.classList.add('hidden');
-        document.body.style.overflow = '';
         document.getElementById('collections').scrollIntoView({behavior: 'smooth'});
         currentCategory = null;
     }, 400); // matches opacity transition
