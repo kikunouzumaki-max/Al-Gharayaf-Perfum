@@ -20,7 +20,8 @@
     </div>
 
     <!-- Product Slider View -->
-    <div id="cinematic-slider-view" class="absolute inset-0 z-30 flex flex-col md:flex-row w-full h-full pt-28 pb-32 md:pt-32 md:pb-32">
+    <div id="cinematic-slider-view" class="absolute inset-0 z-30 flex flex-col md:flex-row w-full h-full pt-28 pb-32 md:pt-32 md:pb-32 pointer-events-none">
+        <div class="pointer-events-auto absolute inset-0 z-10 flex flex-col md:flex-row w-full h-full">
         <!-- Visual Container (Left) -->
         <div id="cinematic-visual-box" class="w-full md:w-[45%] h-[35%] md:h-full flex flex-col items-center justify-center relative slide-content pt-16 md:pt-24 lg:pt-32 mt-4 md:mt-8">
             <div class="product-glow"></div>
@@ -65,7 +66,7 @@
             </div>
 
             <div id="c-action" class="stagger-text delay-5 w-auto inline-block mb-12 md:mb-0 shrink-0">
-                <button id="cinematic-wa-btn" class="lux-btn flex items-center gap-4 py-3 md:py-3.5 px-8 md:px-10 rounded-sm cursor-pointer group">
+                <button id="cinematic-wa-btn" class="lux-btn flex items-center gap-4 py-3 md:py-3.5 px-8 md:px-10 rounded-sm cursor-pointer group pointer-events-auto">
                     <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" class="lux-btn-content w-4 h-4 md:w-5 md:h-5 transition-transform duration-500 group-hover:scale-110" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M7.9 20A9 9 0 1 0 4 16.1L2 22Z"/><path d="M8 12h.01"/><path d="M12 12h.01"/><path d="M16 12h.01"/></svg>
                     <div class="lux-btn-content flex flex-col items-start text-left">
                         <span class="font-arabic-sans text-base md:text-lg font-bold leading-none mb-1.5 group-hover:text-brand-dark">اطلب عبر واتساب</span>
@@ -74,6 +75,7 @@
                 </button>
             </div>
 
+        </div>
         </div>
 
         <!-- Navigation Layer (Bottom) -->
