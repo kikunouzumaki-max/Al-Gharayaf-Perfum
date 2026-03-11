@@ -21,6 +21,13 @@
       <a href="#contact" class="text-sm tracking-widest uppercase hover:text-brand-gold transition-colors relative group">
         Contact
         <span class="absolute -bottom-1 left-0 w-0 h-[1px] bg-brand-gold transition-all duration-300 group-hover:w-full"></span>
+      <a href="/cart" class="text-sm tracking-widest uppercase hover:text-brand-gold transition-colors relative group flex items-center gap-2">
+        Cart
+        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" class="w-4 h-4"><circle cx="8" cy="21" r="1"/><circle cx="19" cy="21" r="1"/><path d="M2.05 2.05h2l2.66 12.42a2 2 0 0 0 2 1.58h9.78a2 2 0 0 0 1.95-1.57l1.65-7.43H5.12"/></svg>
+        <span class="absolute -top-1 -right-2 bg-brand-gold text-brand-dark text-[9px] font-bold w-4 h-4 rounded-full flex items-center justify-center {% if cart.item_count == 0 %}hidden{% endif %}">
+          {{ cart.item_count }}
+        </span>
+        <span class="absolute -bottom-1 left-0 w-0 h-[1px] bg-brand-gold transition-all duration-300 group-hover:w-full"></span>
       </a>
     </div>
 
@@ -43,8 +50,14 @@
   </div>
   <a href="#collections" class="mobile-link text-2xl font-display tracking-widest uppercase text-brand-cream">Collections</a>
   <a href="#our-story" class="mobile-link text-2xl font-display tracking-widest uppercase text-brand-cream">Our Story</a>
-  <a href="#bespoke" class="mobile-link text-2xl font-display tracking-widest uppercase text-brand-cream">Bespoke</a>
   <a href="#contact" class="mobile-link text-2xl font-display tracking-widest uppercase text-brand-cream">Contact</a>
+  <a href="/cart" class="mobile-link text-2xl font-display tracking-widest uppercase text-brand-gold relative flex items-center gap-3">
+    Cart
+    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" class="w-6 h-6"><circle cx="8" cy="21" r="1"/><circle cx="19" cy="21" r="1"/><path d="M2.05 2.05h2l2.66 12.42a2 2 0 0 0 2 1.58h9.78a2 2 0 0 0 1.95-1.57l1.65-7.43H5.12"/></svg>
+    <span class="absolute -top-1 -right-3 bg-brand-cream text-brand-dark text-xs font-bold w-5 h-5 rounded-full flex items-center justify-center {% if cart.item_count == 0 %}hidden{% endif %}">
+      {{ cart.item_count }}
+    </span>
+  </a>
   <a href="https://wa.me/971547411813" class="flex items-center gap-2 bg-brand-gold text-brand-dark px-8 py-3 rounded-full mt-4">
     <span class="font-arabic-sans">تواصل معنا</span>
     <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="w-5 h-5"><path d="M7.9 20A9 9 0 1 0 4 16.1L2 22Z"/><path d="M8 12h.01"/><path d="M12 12h.01"/><path d="M16 12h.01"/></svg>

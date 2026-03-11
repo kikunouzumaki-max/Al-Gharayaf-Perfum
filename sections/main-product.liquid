@@ -42,21 +42,34 @@
             </div>
             {% endif %}
 
-            <div class="flex flex-col mb-8 md:mb-12">
+            <div class="flex flex-col mb-8 md:mb-10">
                 <div class="font-mono text-xl md:text-2xl font-bold text-brand-gold">
                     {{ product.price | money }}
                 </div>
             </div>
 
+            <div class="w-full max-w-[400px] mb-[60px] md:mb-0 shrink-0 flex flex-col gap-4">
+                {% form 'product', product %}
+                    <input type="hidden" name="id" value="{{ product.selected_or_first_available_variant.id }}">
+                    
+                    <button type="submit" name="add" class="w-full flex items-center justify-center gap-3 py-4 text-brand-dark bg-brand-gold hover:bg-brand-cream transition-colors duration-300 uppercase tracking-[0.2em] font-modern text-sm font-bold rounded-sm disabled:opacity-50 disabled:cursor-not-allowed" {% unless product.available %}disabled{% endunless %}>
+                        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" class="w-5 h-5"><circle cx="8" cy="21" r="1"/><circle cx="19" cy="21" r="1"/><path d="M2.05 2.05h2l2.66 12.42a2 2 0 0 0 2 1.58h9.78a2 2 0 0 0 1.95-1.57l1.65-7.43H5.12"/></svg>
+                        {% if product.available %}
+                            Add to Cart
+                        {% else %}
+                            Sold Out
+                        {% endif %}
+                    </button>
+                {% endform %}
+
             {% assign wa_message = "السلام عليكم، أرغب في الاستفسار عن " | append: product.title %}
-            <div class="w-auto inline-block mb-[60px] md:mb-0 shrink-0">
-                <a href="https://wa.me/971547411813?text={{ wa_message | url_encode }}" target="_blank" class="lux-btn flex items-center gap-4 py-3 md:py-3.5 px-8 md:px-10 rounded-sm cursor-pointer group pointer-events-auto no-underline">
-                    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" class="lux-btn-content w-4 h-4 md:w-5 md:h-5 transition-transform duration-500 group-hover:scale-110" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M7.9 20A9 9 0 1 0 4 16.1L2 22Z"/><path d="M8 12h.01"/><path d="M12 12h.01"/><path d="M16 12h.01"/></svg>
-                    <div class="lux-btn-content flex flex-col items-start text-left">
-                        <span class="font-arabic-sans text-base md:text-lg font-bold leading-none mb-1.5 group-hover:text-brand-dark">اطلب عبر واتساب</span>
-                        <span class="font-modern text-[8px] md:text-[9px] uppercase tracking-[0.25em] opacity-80 group-hover:opacity-100 transition-opacity">Order via WhatsApp</span>
-                    </div>
-                </a>
+            <a href="https://wa.me/971547411813?text={{ wa_message | url_encode }}" target="_blank" class="lux-btn flex items-center justify-between w-full py-3 px-6 rounded-sm cursor-pointer group pointer-events-auto no-underline border border-brand-gold/30 hover:border-brand-gold transition-colors">
+                <div class="lux-btn-content flex flex-col items-start text-left">
+                    <span class="font-arabic-sans text-sm md:text-base font-bold leading-none mb-1 group-hover:text-brand-dark">اطلب عبر واتساب</span>
+                    <span class="font-modern text-[8px] uppercase tracking-[0.2em] opacity-80 group-hover:opacity-100 transition-opacity">Order via WhatsApp</span>
+                </div>
+                <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" class="lux-btn-content w-4 h-4 transition-transform duration-500 group-hover:scale-110" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M7.9 20A9 9 0 1 0 4 16.1L2 22Z"/><path d="M8 12h.01"/><path d="M12 12h.01"/><path d="M16 12h.01"/></svg>
+            </a>
             </div>
 
         </div>
