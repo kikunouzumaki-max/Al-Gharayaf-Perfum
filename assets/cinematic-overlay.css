@@ -185,3 +185,41 @@
     -ms-overflow-style: none;  /* IE and Edge */
     scrollbar-width: none;  /* Firefox */
 }
+
+/* Luxury Button */
+.lux-btn {
+    position: relative;
+    overflow: hidden;
+    background: transparent;
+    border: 1px solid rgba(184, 150, 46, 0.4);
+    color: var(--color-brand-gold);
+    transition: all 500ms cubic-bezier(0.25, 0.46, 0.45, 0.94);
+}
+
+.lux-btn::before {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background-color: var(--color-brand-gold);
+    transform: scaleX(0);
+    transform-origin: right;
+    transition: transform 500ms cubic-bezier(0.25, 0.46, 0.45, 0.94);
+    z-index: 1;
+}
+
+.lux-btn:hover {
+    color: var(--color-brand-dark) !important;
+    border-color: var(--color-brand-gold);
+    transform: translateY(-2px);
+    box-shadow: 0 10px 40px -10px rgba(184, 150, 46, 0.4);
+}
+
+.lux-btn:hover::before {
+    transform: scaleX(1);
+    transform-origin: left;
+}
+
+.lux-btn-content {
+    position: relative;
+    z-index: 2;
+}
