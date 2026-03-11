@@ -1,413 +1,348 @@
-// Catalogue Data & Overlay Engine
-const catalogueData = {
+// Cinematic Overlay Data & Engine
+
+const cinematicData = {
   'raw-oud': {
-    nameAr: "عود خام",
-    nameEn: "Raw Oud Wood",
-    heroCopy: "Taken from ancient trees. Aged by nature. Chosen by hand.\nThis is not a purchase — it is an inheritance.",
-    pricePill: "200 – 2,000 AED",
+    title_ar: 'عود خام',
+    title_en: 'Raw Oud Wood',
+    hero_copy: 'Taken from ancient trees. Aged by nature. Chosen by hand. This is not a purchase — it is an inheritance.',
+    icon: '🪵',
     products: [
-      { id: "oud-1", nameAr: "عود هندي فاخر", nameEn: "Premium Indian Oud", desc: "Warm. Deep. Timeless. The scent of an old majlis at midnight.", stars: 5, price: "1,200", unit: "AED / 10g", badge: "Rare", options: [{weight: "5g", price: 650}, {weight: "10g", price: 1200}, {weight: "25g", price: 2800}], profiles: ["Deep", "Earthy", "Warm"], story: "Some things cannot be rushed. The Indian oud tree takes decades to form this resin — this liquid history carried in wood. When you burn it, you are not filling a room with fragrance. You are connecting to something ancient, something that was here long before us, and will remain long after." },
-      { id: "oud-2", nameAr: "عود كمبودي أصيل", nameEn: "Authentic Cambodian Oud", desc: "Smooth, sweet, endlessly complex.\nNature's most patient creation.", stars: 5, price: "2,000", unit: "AED / 10g", badge: "Rare", options: [{weight: "5g", price: 1100}, {weight: "10g", price: 2000}, {weight: "25g", price: 4800}], profiles: ["Sweet", "Smooth", "Complex"], story: "From the deepest forests of Cambodia comes a scent profile that has captivated royalty for centuries. The sweetness is naturally derived, unfolding slowly as the chip is gently heated." },
-      { id: "oud-3", nameAr: "عود عربي كلاسيكي", nameEn: "Classic Arabian Oud", desc: "The scent of Eid morning. Of grandmother's prayer room.\nOf everything you love about home.", stars: 5, price: "600", unit: "AED / 10g", options: [{weight: "5g", price: 320}, {weight: "10g", price: 600}, {weight: "25g", price: 1350}], profiles: ["Classic", "Woody", "Nostalgic"], story: "This is the signature scent of Gulf hospitality. Unapologetically traditional, it evokes memories of family gatherings, celebrations, and the comforting embrace of heritage." },
-      { id: "oud-4", nameAr: "عود ملكي مُعتَّق", nameEn: "Aged Royal Oud", desc: "Aged over decades. A depth that unfolds slowly —\nlike a story told with no rush.", stars: 5, price: "1,800", unit: "AED / 10g", badge: "Limited", options: [{weight: "5g", price: 950}, {weight: "10g", price: 1800}, {weight: "25g", price: 4200}], profiles: ["Aged", "Rich", "Resinous"], story: "Time is the ultimate luxury. This specific batch has been carefully aged to round off any harsh edges, resulting in a microscopic resin density that burns cleaner and lasts infinitely longer." },
-      { id: "oud-5", nameAr: "عود خليجي أصيل", nameEn: "Pure Gulf Oud", desc: "Grounded. Earthy. Honest.\nThe raw soul of the Arabian peninsula.", stars: 4, price: "450", unit: "AED / 10g", options: [{weight: "5g", price: 250}, {weight: "10g", price: 450}, {weight: "25g", price: 1000}], profiles: ["Earthy", "Honest", "Grounding"], story: "A daily luxury. Perfect for scenting garments or the home after cleaning. It provides a robust, woody foundation that lingers in fabrics for days." },
-      { id: "oud-6", nameAr: "عود بنغالي نادر", nameEn: "Rare Bengali Oud", desc: "Floral. Unexpected. For those who seek\nthe extraordinary in every breath.", stars: 5, price: "1,500", unit: "AED / 10g", badge: "New", options: [{weight: "5g", price: 800}, {weight: "10g", price: 1500}, {weight: "25g", price: 3500}], profiles: ["Floral", "Unique", "Rare"], story: "Bengali agarwood is notoriously difficult to source at this grade. It surprises the senses with a delicate almost-floral top note before settling into the deep, dark woodiness expected from prime resin." }
+      { id: 'indian-oud', name_ar: 'عود هندي فاخر', name_en: 'Premium Indian Oud', description: 'Some things cannot be rushed. The Indian oud tree takes decades to form this resin — this liquid history. When you burn it, you are not filling a room with fragrance. You are connecting to something ancient, something that was here long before us.', tags: ['DEEP', 'EARTHY', 'WARM'], price: '1,200 AED / 10g', badge: 'Rare', rating: 5.0, icon: '🪵', wa_message: 'السلام عليكم، أرغب في طلب: عود هندي فاخر 10g' },
+      { id: 'cambodian-oud', name_ar: 'عود كمبودي أصيل', name_en: 'Authentic Cambodian Oud', description: 'Smooth, sweet, and endlessly complex. The Cambodian forests hold secrets that no laboratory can replicate. Each chip is a conversation between centuries of growth and a single moment of burning beauty.', tags: ['SWEET', 'COMPLEX', 'SMOOTH'], price: '2,000 AED / 10g', badge: 'Rare', rating: 4.8, icon: '🌿', wa_message: 'السلام عليكم، أرغب في طلب: عود كمبودي أصيل 10g' },
+      { id: 'arabian-oud', name_ar: 'عود عربي كلاسيكي', name_en: 'Classic Arabian Oud', description: 'The scent of Eid morning. Of grandmother\'s prayer room. Of everything you love about home. This is the oud that lives in the memory of every Gulf family — passed down without words.', tags: ['HERITAGE', 'WARM', 'FAMILIAR'], price: '600 AED / 10g', badge: null, rating: 4.9, icon: '🔥', wa_message: 'السلام عليكم، أرغب في طلب: عود عربي كلاسيكي 10g' },
+      { id: 'royal-oud', name_ar: 'عود ملكي مُعتَّق', name_en: 'Aged Royal Oud', description: 'Aged over decades. A depth that unfolds slowly — like a story told with no rush, by someone who knows that the best things in life never hurry. Reserved for those who understand patience.', tags: ['AGED', 'ROYAL', 'DEEP'], price: '1,800 AED / 10g', badge: 'Limited', rating: 5.0, icon: '👑', wa_message: 'السلام عليكم، أرغب في طلب: عود ملكي معتق 10g' },
+      { id: 'gulf-oud', name_ar: 'عود خليجي أصيل', name_en: 'Pure Gulf Oud', description: 'Grounded. Earthy. Honest. The raw soul of the Arabian peninsula in its most unfiltered form. For those who want no artifice — only truth, in smoke and wood and time.', tags: ['EARTHY', 'PURE', 'GROUNDED'], price: '450 AED / 10g', badge: null, rating: 4.7, icon: '🌾', wa_message: 'السلام عليكم، أرغب في طلب: عود خليجي أصيل 10g' },
+      { id: 'bengali-oud', name_ar: 'عود بنغالي نادر', name_en: 'Rare Bengali Oud', description: 'Floral. Unexpected. For those who seek the extraordinary in every breath. Bengali oud carries a lightness that surprises — a delicate beauty hidden inside ancient wood.', tags: ['FLORAL', 'RARE', 'DELICATE'], price: '1,500 AED / 10g', badge: 'New', rating: 4.9, icon: '🌸', wa_message: 'السلام عليكم، أرغب في طلب: عود بنغالي نادر 10g' }
     ]
   },
   'oil-perfumes': {
-    nameAr: "عطور دهنية",
-    nameEn: "Oud Oil Perfumes",
-    heroCopy: "Alcohol-free. Concentrated. Intimate.\nApplied to your skin, it becomes part of you.",
-    pricePill: "150 – 800 AED",
+    title_ar: 'عطور دهنية',
+    title_en: 'Oud Oil Perfumes',
+    hero_copy: 'Alcohol-free. Concentrated. Intimate. Applied to your skin, it becomes yours — evolving with your warmth through the day.',
+    icon: '💧',
     products: [
-      { id: "oil-1", nameAr: "نجم سهيل", nameEn: "Najm Suhail", desc: "Warm amber and deep oud — your skin, elevated forever.", stars: 5, price: "380", unit: "AED / 12ml", badge: "Bestseller", options: [{weight: "6ml", price: 200}, {weight: "12ml", price: 380}, {weight: "24ml", price: 700}], profiles: ["Amber", "Warm", "Magnetic"], story: "Named after the guiding star of the desert, this oil is a compass to Arabian heritage. It melts into the skin, radiating a quiet warmth that draws people closer rather than announcing your arrival." },
-      { id: "oil-2", nameAr: "مسك الخليج", nameEn: "Gulf Musk", desc: "Soft, clean, addictive.\nThe scent people ask you about all day.", stars: 5, price: "280", unit: "AED / 12ml", options: [{weight: "6ml", price: 150}, {weight: "12ml", price: 280}, {weight: "24ml", price: 500}], profiles: ["Clean", "Soft", "Musk"], story: "The ultimate skin scent. It enhances your natural aroma with a phenomenally clean, white musk base that feels like freshly washed linen drying in a desert breeze." },
-      { id: "oil-3", nameAr: "عنبر ملكي", nameEn: "Royal Amber", desc: "Rich amber with a whisper of rose.\nLuxury that lasts from Fajr to midnight.", stars: 5, price: "450", unit: "AED / 12ml", badge: "Rare", options: [{weight: "6ml", price: 240}, {weight: "12ml", price: 450}, {weight: "24ml", price: 850}], profiles: ["Rich", "Resinous", "Royal"], story: "A masterclass in blending. The dense, sticky sweetness of fossilized amber is perfectly counterbalanced by the sharp, ethereal beauty of a single drop of Taif rose absolute." },
-      { id: "oil-4", nameAr: "ورد الطائف", nameEn: "Taif Rose", desc: "The most coveted rose in Arabia.\nLiquid poetry on your pulse points.", stars: 5, price: "520", unit: "AED / 12ml", badge: "Limited", options: [{weight: "3ml", price: 280}, {weight: "6ml", price: 520}], profiles: ["Floral", "Precious", "Pure"], story: "Cultivated in the high-altitude mountains of Taif, these roses are picked at dawn before the sun evaporates their dew. It takes tens of thousands of petals to yield a single tola of this liquid gold." },
-      { id: "oil-5", nameAr: "صندل الهند", nameEn: "Indian Sandalwood", desc: "Creamy. Meditative. Timeless.\nFor those who wear their calm like armor.", stars: 4, price: "320", unit: "AED / 12ml", options: [{weight: "6ml", price: 180}, {weight: "12ml", price: 320}, {weight: "24ml", price: 600}], profiles: ["Creamy", "Woody", "Calm"], story: "Sourced from the Mysore region, this sandalwood oil is buttery and smooth. It is known historically for its grounding properties, centering the mind in a chaotic world." },
-      { id: "oil-6", nameAr: "زعفران وعود", nameEn: "Saffron & Oud", desc: "Saffron's fire. Oud's depth.\nThe combination that defines Arabian luxury.", stars: 5, price: "680", unit: "AED / 12ml", badge: "Exclusive", options: [{weight: "6ml", price: 360}, {weight: "12ml", price: 680}], profiles: ["Spicy", "Deep", "Luxurious"], story: "The two most expensive ingredients in perfumery, married in perfect harmony. The metallic, fiery bite of Persian saffron cuts beautifully through the dark, brooding base of aged Assami oud." }
+      { id: 'najm-suhail', name_ar: 'نجم سهيل', name_en: 'Najm Suhail', description: 'Named after the brightest star visible from the Arabian peninsula. Warm amber and deep oud that rises from your skin like heat from desert sand at dusk. Your presence, elevated.', tags: ['AMBER', 'DEEP OUD', 'WARM'], price: '380 AED / 12ml', badge: 'Bestseller', rating: 5.0, icon: '⭐', wa_message: 'السلام عليكم، أرغب في طلب: نجم سهيل 12ml' },
+      { id: 'gulf-musk', name_ar: 'مسك الخليج', name_en: 'Gulf Musk', description: 'Soft, clean, and quietly addictive. The kind of scent people lean closer to ask about. A skin-close musk that makes your natural warmth its canvas — and never lets go.', tags: ['MUSK', 'CLEAN', 'INTIMATE'], price: '280 AED / 12ml', badge: null, rating: 4.9, icon: '🌙', wa_message: 'السلام عليكم، أرغب في طلب: مسك الخليج 12ml' },
+      { id: 'royal-amber', name_ar: 'عنبر ملكي', name_en: 'Royal Amber', description: 'Rich amber resin with a whisper of Taif rose. A fragrance that announces your arrival and lingers long after you leave. Luxury that begins at Fajr and carries you through to midnight.', tags: ['AMBER', 'ROSE', 'LUXURIOUS'], price: '450 AED / 12ml', badge: 'Rare', rating: 5.0, icon: '🟡', wa_message: 'السلام عليكم، أرغب في طلب: عنبر ملكي 12ml' },
+      { id: 'taif-rose', name_ar: 'ورد الطائف', name_en: 'Taif Rose', description: 'The most coveted rose in all of Arabia, harvested at dawn when the dew still clings to each petal. Liquid poetry applied to your pulse points — a fragrance that makes the world slow down.', tags: ['FLORAL', 'ROSE', 'POETIC'], price: '520 AED / 12ml', badge: 'Limited', rating: 5.0, icon: '🌹', wa_message: 'السلام عليكم، أرغب في طلب: ورد الطائف 12ml' },
+      { id: 'sandalwood', name_ar: 'صندل الهند', name_en: 'Indian Sandalwood', description: 'Creamy. Meditative. Timeless. Sandalwood has been the foundation of Arabian perfumery for centuries — grounding every blend, calming every room, settling every mind that breathes it in.', tags: ['CREAMY', 'CALM', 'WOODY'], price: '320 AED / 12ml', badge: null, rating: 4.8, icon: '🌰', wa_message: 'السلام عليكم، أرغب في طلب: صندل الهند 12ml' },
+      { id: 'saffron-oud', name_ar: 'زعفران وعود', name_en: 'Saffron & Oud', description: "Saffron's fire meets oud's depth. The most iconic combination in Arabian luxury perfumery. Bold enough to command a room. Complex enough to be endlessly discovered. This is the combination that defines a culture.", tags: ['SPICED', 'BOLD', 'ICONIC'], price: '680 AED / 12ml', badge: 'Exclusive', rating: 5.0, icon: '✨', wa_message: 'السلام عليكم، أرغب في طلب: زعفران وعود 12ml' }
     ]
   },
   'spray-perfumes': {
-    nameAr: "عطور إسبري",
-    nameEn: "Spray Perfumes",
-    heroCopy: "The Arabian soul in modern form.\nEvery spray is a declaration of where you come from.",
-    pricePill: "100 – 500 AED",
+    title_ar: 'عطور إسبري',
+    title_en: 'Spray Perfumes',
+    hero_copy: 'The Arabian soul in modern form. Every spray is a declaration — of where you come from, and where you are going.',
+    icon: '✦',
     products: [
-      { id: "spray-1", nameAr: "صحراء الذهب", nameEn: "Desert Gold", desc: "Dry woods, amber, and a trail that turns heads.\nModern Gulf confidence.", stars: 5, price: "320", unit: "AED / 100ml", badge: "Bestseller", options: [{weight: "50ml", price: 180}, {weight: "100ml", price: 320}], profiles: ["Dry Woods", "Amber", "Confident"], story: "Designed for the modern professional. It projects an aura of absolute competence and refined taste, leaving a sillage that lingers respectfully in the boardroom long after you've left." },
-      { id: "spray-2", nameAr: "ليل أبوظبي", nameEn: "Abu Dhabi Night", desc: "Dark florals and deep oud.\nThe city at its most glamorous.", stars: 5, price: "380", unit: "AED / 100ml", options: [{weight: "50ml", price: 210}, {weight: "100ml", price: 380}], profiles: ["Glamorous", "Dark Florals", "Oud"], story: "Inspired by the glittering skyline against the pitch-black Gulf water. It starts bright and ostentatious, drying down into something profoundly elegant and mysterious." },
-      { id: "spray-3", nameAr: "فجر", nameEn: "Fajr", desc: "Fresh citrus and soft musk.\nThe promise of a new day, bottled.", stars: 4, price: "220", unit: "AED / 100ml", options: [{weight: "50ml", price: 130}, {weight: "100ml", price: 220}], profiles: ["Fresh", "Citrus", "Musk"], story: "A masterfully balanced fresh scent that does not rely on synthetic aquatic notes. Instead, it uses tart Omani lime and crisp white musk to create an awakening experience." },
-      { id: "spray-4", nameAr: "ملكة", nameEn: "Maleeka", desc: "Powdery rose and white oud.\nFor the woman who needs no introduction.", stars: 5, price: "420", unit: "AED / 100ml", badge: "New", options: [{weight: "50ml", price: 240}, {weight: "100ml", price: 420}], profiles: ["Powdery", "Rose", "Regal"], story: "A fragrance of undeniable presence. 'Maleeka' means Queen, and this composition of velvety Turkish rose over a delicate, non-animalic white oud base demands absolute respect." },
-      { id: "spray-5", nameAr: "القصر", nameEn: "Al Qasr", desc: "Oud, leather, and spice.\nPresence without a word spoken.", stars: 5, price: "480", unit: "AED / 100ml", badge: "Limited", options: [{weight: "50ml", price: 280}, {weight: "100ml", price: 480}], profiles: ["Leather", "Spice", "Commanding"], story: "Heavy, dark, and intoxicating. Real Russian leather accords wrapped in smoke and cardamom. It is not for the faint of heart, but for those who are entirely comfortable in their own power." },
-      { id: "spray-6", nameAr: "نسيم", nameEn: "Naseem", desc: "Light, fresh, effortless.\nLike the first Gulf breeze of morning.", stars: 4, price: "180", unit: "AED / 100ml", options: [{weight: "50ml", price: 100}, {weight: "100ml", price: 180}], profiles: ["Light", "Breezy", "Effortless"], story: "An everyday signature that offends no one but delights everyone. Perfect for intense summer heat, it cuts through humidity with a crisp, airy botanical profile." }
+      { id: 'desert-gold', name_ar: 'صحراء الذهب', name_en: 'Desert Gold', description: 'Dry woods, warm amber, and a trail that turns heads three rooms away. The confidence of modern Gulf identity — dressed in a kandura, driving a Land Cruiser, leaving a trail no one forgets.', tags: ['WOODY', 'AMBER', 'BOLD'], price: '320 AED / 100ml', badge: 'Bestseller', rating: 5.0, icon: '🏜️', wa_message: 'السلام عليكم، أرغب في طلب: صحراء الذهب 100ml' },
+      { id: 'abudhabi-night', name_ar: 'ليل أبوظبي', name_en: 'Abu Dhabi Night', description: 'Dark florals layered over deep oud. The Corniche at midnight. The city at its most glamorous — lights reflecting on still water, the air cool and charged with possibility.', tags: ['DARK FLORAL', 'OUD', 'NIGHT'], price: '380 AED / 100ml', badge: null, rating: 4.9, icon: '🌃', wa_message: 'السلام عليكم، أرغب في طلب: ليل أبوظبي 100ml' },
+      { id: 'fajr', name_ar: 'فجر', name_en: 'Fajr', description: 'Fresh citrus and soft musk — the promise of a new day, bottled. Clean without being cold. Light without being insignificant. For those who begin each morning with intention.', tags: ['FRESH', 'CITRUS', 'CLEAN'], price: '220 AED / 100ml', badge: null, rating: 4.7, icon: '🌅', wa_message: 'السلام عليكم، أرغب في طلب: فجر 100ml' },
+      { id: 'maleeka', name_ar: 'ملكة', name_en: 'Maleeka', description: 'Powdery rose and white oud — crafted for the woman who needs no introduction. She enters a room and the fragrance does the rest. Named after queens, designed for those who are.', tags: ['POWDERY', 'ROSE', 'FEMININE'], price: '420 AED / 100ml', badge: 'New', rating: 5.0, icon: '👑', wa_message: 'السلام عليكم، أرغب في طلب: ملكة 100ml' },
+      { id: 'al-qasr', name_ar: 'القصر', name_en: 'Al Qasr', description: 'Oud, leather, and spice. Presence without a word spoken. Named after the palace — because that is exactly where this fragrance belongs. On the skin of someone who commands respect.', tags: ['LEATHER', 'SPICE', 'POWERFUL'], price: '480 AED / 100ml', badge: 'Limited', rating: 5.0, icon: '🏰', wa_message: 'السلام عليكم، أرغب في طلب: القصر 100ml' },
+      { id: 'naseem', name_ar: 'نسيم', name_en: 'Naseem', description: 'Light, fresh, effortless. Like the first Gulf breeze of morning before the heat arrives — that perfect moment between night and day. Wearable every day. Missed every time you do not.', tags: ['LIGHT', 'BREEZY', 'FRESH'], price: '180 AED / 100ml', badge: null, rating: 4.6, icon: '💨', wa_message: 'السلام عليكم، أرغب في طلب: نسيم 100ml' }
     ]
   },
   'bakhoor': {
-    nameAr: "بخور",
-    nameEn: "Bakhoor",
-    heroCopy: "Your home has a scent. Make it unforgettable.\nHospitality is not just generosity — it is memory.",
-    pricePill: "80 – 400 AED",
+    title_ar: 'بخور',
+    title_en: 'Bakhoor',
+    hero_copy: 'Your home has a scent. Make it unforgettable. In our culture, how your home smells is a statement of who you are.',
+    icon: '〰️',
     products: [
-      { id: "bakh-1", nameAr: "بخور دهن العود", nameEn: "Oud Oil Bakhoor", desc: "The purest bakhoor experience.\nOne chip fills an entire home.", stars: 5, price: "280", unit: "AED / 40g", badge: "Bestseller", options: [{weight: "40g", price: 280}, {weight: "80g", price: 500}], profiles: ["Pure", "Oud", "Intense"], story: "Hand-kneaded wood powders soaked in pure oud oil for 90 days before drying. When placed on warm charcoal, it releases a thick, fragrant smoke that clings to furnishings for days." },
-      { id: "bakh-2", nameAr: "بخور الورد", nameEn: "Rose Bakhoor", desc: "Floral, soft, and unmistakably feminine.\nFor bedrooms and bridal suites.", stars: 5, price: "180", unit: "AED / 40g", options: [{weight: "40g", price: 180}, {weight: "80g", price: 320}], profiles: ["Floral", "Soft", "Romantic"], story: "A beautiful, romantic blend focusing on Damask rose and light ambergris. It burns with an incredibly soft, rounded profile that never turns acrid or smoky." },
-      { id: "bakh-3", nameAr: "بخور العنبر", nameEn: "Amber Bakhoor", desc: "Warm amber resin that lingers\nlong after guests leave. That is the point.", stars: 5, price: "220", unit: "AED / 40g", options: [{weight: "40g", price: 220}, {weight: "80g", price: 400}], profiles: ["Warm", "Resinous", "Welcoming"], story: "The ultimate hospitality scent. Amber emits a golden, sweet warmth when heated, creating an atmosphere of absolute comfort and luxury in your living spaces." },
-      { id: "bakh-4", nameAr: "بخور المسك", nameEn: "Musk Bakhoor", desc: "Clean and enveloping.\nThe scent of a home that is truly cared for.", stars: 4, price: "160", unit: "AED / 40g", options: [{weight: "40g", price: 160}, {weight: "80g", price: 290}], profiles: ["Clean", "Musk", "Comforting"], story: "Designed for purifying the home's atmosphere. The white musk base burns remarkably clean, neutralizing odors and leaving a lingering scent of expensive soap and fresh linens." },
-      { id: "bakh-5", nameAr: "بخور ملكي", nameEn: "Royal Bakhoor", desc: "Reserved for special occasions.\nEid. Weddings. Moments that matter.", stars: 5, price: "380", unit: "AED / 40g", badge: "Limited", options: [{weight: "40g", price: 380}, {weight: "80g", price: 700}], profiles: ["Complex", "Spicy", "Royal"], story: "The recipe for this blend has been guarded for three generations. It comprises 14 different ingredients including frankincense, myrrh, saffron, and premium Cambodian oud chips." },
-      { id: "bakh-6", nameAr: "بخور الرياض", nameEn: "Riyadh Bakhoor", desc: "Bold, spiced, and deeply traditional.\nFor those who never compromise on heritage.", stars: 5, price: "240", unit: "AED / 40g", badge: "New", options: [{weight: "40g", price: 240}, {weight: "80g", price: 440}], profiles: ["Bold", "Spiced", "Traditional"], story: "A homage to the Najd region. Heavy on the spices, incorporating cloves, cardamom, and dark woods to create a robust, uncompromisingly authentic Arabian atmosphere." }
+      { id: 'oud-bakhoor', name_ar: 'بخور دهن العود', name_en: 'Oud Oil Bakhoor', description: 'The purest bakhoor experience available. Oud oil absorbed into natural wood chips — a single piece fills an entire home with smoke that rises like a prayer and settles like peace.', tags: ['OUD', 'PURE', 'RICH'], price: '280 AED / 40g', badge: 'Bestseller', rating: 5.0, icon: '🌫️', wa_message: 'السلام عليكم، أرغب في طلب: بخور دهن العود 40g' },
+      { id: 'rose-bakhoor', name_ar: 'بخور الورد', name_en: 'Rose Bakhoor', description: 'Floral, soft, and unmistakably feminine. Burn it in bedrooms, bridal suites, and anywhere that deserves softness. The scent of petals becoming smoke — beautiful in every form it takes.', tags: ['FLORAL', 'SOFT', 'FEMININE'], price: '180 AED / 40g', badge: null, rating: 4.9, icon: '🌸', wa_message: 'السلام عليكم، أرغب في طلب: بخور الورد 40g' },
+      { id: 'amber-bakhoor', name_ar: 'بخور العنبر', name_en: 'Amber Bakhoor', description: 'Warm amber resin that clings to curtains, cushions, and memory. Guests arrive and say nothing — but notice everything. The highest compliment is when they ask what you burned.', tags: ['AMBER', 'WARM', 'LASTING'], price: '220 AED / 40g', badge: null, rating: 5.0, icon: '🟡', wa_message: 'السلام عليكم، أرغب في طلب: بخور العنبر 40g' },
+      { id: 'musk-bakhoor', name_ar: 'بخور المسك', name_en: 'Musk Bakhoor', description: 'Clean and enveloping — the scent of a home that is truly cared for. Musk bakhoor settles gently into every room, creating the kind of atmosphere where guests never want to leave.', tags: ['MUSK', 'CLEAN', 'WELCOMING'], price: '160 AED / 40g', badge: null, rating: 4.8, icon: '🤍', wa_message: 'السلام عليكم، أرغب في طلب: بخور المسك 40g' },
+      { id: 'royal-bakhoor', name_ar: 'بخور ملكي', name_en: 'Royal Bakhoor', description: 'Reserved for special occasions. Eid. Weddings. The arrival of honored guests. Some bakhoor is for every day — this one is for the moments in life that deserve to be remembered forever.', tags: ['ROYAL', 'SPECIAL', 'GRAND'], price: '380 AED / 40g', badge: 'Limited', rating: 5.0, icon: '👑', wa_message: 'السلام عليكم، أرغب في طلب: بخور ملكي 40g' },
+      { id: 'riyadh-bakhoor', name_ar: 'بخور الرياض', name_en: 'Riyadh Bakhoor', description: 'Bold, spiced, and deeply traditional. This is the bakhoor of the majlis — thick, commanding, unmistakable. For those who refuse to compromise on heritage, even for a single breath.', tags: ['SPICED', 'BOLD', 'TRADITIONAL'], price: '240 AED / 40g', badge: 'New', rating: 4.9, icon: '🔥', wa_message: 'السلام عليكم، أرغب في طلب: بخور الرياض 40g' }
     ]
   },
   'gift-collections': {
-    nameAr: "مجموعات الهدايا",
-    nameEn: "Gift Collections",
-    heroCopy: "In our culture, a gift of perfume is a gift of respect.\nCurated for every occasion that deserves to be remembered.",
-    pricePill: "300 – 1,500 AED",
+    title_ar: 'مجموعات الهدايا',
+    title_en: 'Gift Collections',
+    hero_copy: 'In our culture, a gift of perfume is a gift of respect. Curated for Eid, weddings, and every occasion that deserves to be remembered.',
+    icon: '🎁',
     products: [
-      { id: "gift-1", nameAr: "طقم العيد الملكي", nameEn: "Royal Eid Set", desc: "Three iconic fragrances.\nOne unforgettable presentation.", stars: 5, price: "850", unit: "AED", badge: "Limited", options: [{weight: "Standard", price: 850}], profiles: ["Iconic", "Celebratory", "Curated"], story: "The perfect expression of Eid joy. Encased in a handcrafted velvet and wood box, containing our finest spray perfume, a quarter tola of royal oud oil, and premium grade bakhoor." },
-      { id: "gift-2", nameAr: "هدية العروس", nameEn: "Bridal Gift Set", desc: "Rose, musk, and oud — curated for\nthe most important day of her life.", stars: 5, price: "1,200", unit: "AED", badge: "Exclusive", options: [{weight: "Standard", price: 1200}], profiles: ["Feminine", "Luxurious", "Romantic"], story: "A traditional bridal trousseau essential. Including Taif Rose body oil, white musk for the hair, and our most delicate floral spray perfumes to accompany her on her journey." },
-      { id: "gift-3", nameAr: "طقم الرجل الكلاسيكي", nameEn: "Classic Men's Set", desc: "Oud oil, raw wood chips, and bakhoor.\nThe complete Arabian fragrance ritual.", stars: 5, price: "680", unit: "AED", badge: "Bestseller", options: [{weight: "Standard", price: 680}], profiles: ["Masculine", "Traditional", "Complete"], story: "Designed for the sophisticated gentleman's grooming routine. This set provides the essentials for layering: scenting the garments with smoke, and pulse points with oil." },
-      { id: "gift-4", nameAr: "هدية الترحيب", nameEn: "Welcome Gift Set", desc: "The perfect corporate or hospitality gift.\nWrapped. Signed. Remembered.", stars: 4, price: "420", unit: "AED", options: [{weight: "Standard", price: 420}], profiles: ["Elegant", "Universal", "Refined"], story: "When you need to make an impression without knowing someone's exact taste. This universally appealing set contains our fresh 'Fajr' spray and clean Musk Bakhoor." },
-      { id: "gift-5", nameAr: "طقم الزوجين", nameEn: "Couples Collection", desc: "His and hers. Designed to complement.\nMeant to be shared.", stars: 5, price: "980", unit: "AED", badge: "New", options: [{weight: "Standard", price: 980}], profiles: ["Complementary", "Shared", "Harmonious"], story: "Two spray perfumes formulated to be worn individually, but specifically designed to create a beautiful, unified third scent when the wearers stand closely together." },
-      { id: "gift-6", nameAr: "طقم التجربة", nameEn: "Discovery Set", desc: "Six miniatures. Six stories.\nThe perfect introduction to Al Gharayaf.", stars: 5, price: "320", unit: "AED", options: [{weight: "Standard", price: 320}], profiles: ["Exploration", "Variety", "Introduction"], story: "For the undecided. A beautifully presented row of 10ml vials encompassing our entire main line of spray perfumes, allowing the recipient to live with each scent before committing." }
+      { id: 'royal-eid', name_ar: 'طقم العيد الملكي', name_en: 'Royal Eid Set', description: 'Three iconic Al Gharayaf fragrances presented in a handcrafted gift box worthy of the occasion. Give something that carries meaning — not just packaging. Give a piece of the Gulf.', tags: ['EID', 'LUXURY', 'CURATED'], price: '850 AED', badge: 'Limited', rating: 5.0, icon: '🌙', wa_message: 'السلام عليكم، أرغب في طلب: طقم العيد الملكي' },
+      { id: 'bridal-gift', name_ar: 'هدية العروس', name_en: 'Bridal Gift Set', description: 'Rose, musk, and oud — curated for the most important day of her life. A gift that says: you deserve only the finest. Presented in silk-lined packaging. A memory before the ceremony even begins.', tags: ['BRIDAL', 'FLORAL', 'PRECIOUS'], price: '1,200 AED', badge: 'Exclusive', rating: 5.0, icon: '💍', wa_message: 'السلام عليكم، أرغب في طلب: هدية العروس' },
+      { id: 'mens-classic', name_ar: 'طقم الرجل الكلاسيكي', name_en: 'Classic Men\'s Set', description: 'Oud oil, raw wood chips, and bakhoor — the complete Arabian fragrance ritual, assembled for the man who values tradition. A gift that teaches as much as it pleases.', tags: ['MASCULINE', 'COMPLETE', 'RITUAL'], price: '680 AED', badge: 'Bestseller', rating: 5.0, icon: '🎩', wa_message: 'السلام عليكم، أرغب في طلب: طقم الرجل الكلاسيكي' },
+      { id: 'welcome-gift', name_ar: 'هدية الترحيب', name_en: 'Welcome Gift Set', description: 'The perfect corporate or hospitality gift. Elegant, culturally meaningful, and unmistakably Emirati. Wrapped, sealed, and signed. Leave an impression that outlasts any business card.', tags: ['CORPORATE', 'ELEGANT', 'MEANINGFUL'], price: '420 AED', badge: null, rating: 4.8, icon: '🤝', wa_message: 'السلام عليكم، أرغب في طلب: هدية الترحيب' },
+      { id: 'couples', name_ar: 'طقم الزوجين', name_en: 'Couples Collection', description: 'His and hers — designed to complement each other when worn together. Two distinct fragrances that share a soul. The most romantic gift in our collection, for two people who chose each other.', tags: ['COUPLES', 'ROMANTIC', 'PAIRED'], price: '980 AED', badge: 'New', rating: 4.9, icon: '💑', wa_message: 'السلام عليكم، أرغب في طلب: طقم الزوجين' },
+      { id: 'discovery', name_ar: 'طقم الاكتشاف', name_en: 'Discovery Set', description: 'Six miniatures. Six stories. The perfect introduction to the world of Al Gharayaf — for the curious, the gifted, and those who have not yet found their signature scent. Start here.', tags: ['INTRO', 'SIX SCENTS', 'EXPLORE'], price: '320 AED', badge: null, rating: 4.9, icon: '🔍', wa_message: 'السلام عليكم، أرغب في طلب: طقم الاكتشاف' }
     ]
   },
   'bespoke': {
-    nameAr: "تفصيل عطور",
-    nameEn: "Bespoke Perfume",
-    heroCopy: "One scent. Yours alone.\nNo one else on earth will ever wear what we create for you.",
-    pricePill: "Consultation",
+    title_ar: 'تفصيل عطور',
+    title_en: 'Bespoke Perfume',
+    hero_copy: 'One scent. Yours alone. A private consultation with our master. We listen. We create. You leave with something no one else on earth will ever wear.',
+    icon: '⭐',
     products: [
-      { id: "bes-1", nameAr: "الجلسة الخاصة", nameEn: "Private Consultation", desc: "A one-on-one session with our founder.\nWe listen. We understand. We create.", stars: 5, price: "500", unit: "AED (Starting)", badge: "Exclusive", options: [{weight: "Session", price: 500}], profiles: ["Intimate", "Personal", "Exploratory"], story: "The journey begins with a conversation. In our private atelier, over Arabic coffee, we explore your scent memories, preferences, and the exact aura you wish to project to the world." },
-      { id: "bes-2", nameAr: "عطر الهوية", nameEn: "Identity Fragrance", desc: "Your memory, your personality,\nyour roots — translated into scent.", stars: 5, price: "1,200", unit: "AED (Starting)", badge: "Limited Slots", options: [{weight: "Formulation", price: 1200}], profiles: ["Signature", "Unique", "Formulated"], story: "After your consultation, our master perfumer spends weeks drafting variations of your formula. You will test these iterations until we achieve absolute perfection that perfectly captures 'you'." },
-      { id: "bes-3", nameAr: "هدية التفصيل", nameEn: "Bespoke Gift Voucher", desc: "Give someone the rarest gift:\na scent created only for them.", stars: 5, price: "800", unit: "AED (Starting)", badge: "New", options: [{weight: "Voucher", price: 800}], profiles: ["Gift", "Ultimate", "Rare"], story: "Presented as a heavy, gold-embossed invitation card. The recipient is invited to our atelier for the full bespoke experience, fully paid for by you. The ultimate luxury gift." },
-      { id: "bes-4", nameAr: "عطر الشركة", nameEn: "Corporate Signature Scent", desc: "A unique scent for your brand,\nhotel, or workspace. Identity through fragrance.", stars: 5, price: "3,000", unit: "AED (Starting)", badge: "Exclusive", options: [{weight: "Commercial", price: 3000}], profiles: ["Brand", "Atmospheric", "Scaleable"], story: "Scent marketing is the most powerful memory trigger. We design custom environmental fragrances for luxury retail, hospitality, and corporate spaces to ensure clients never forget your brand." },
-      { id: "bes-5", nameAr: "تجديد العطر", nameEn: "Fragrance Renewal", desc: "Already have a bespoke scent with us?\nRefresh and evolve your formula.", stars: 5, price: "400", unit: "AED (Starting)", options: [{weight: "Reformulation", price: 400}], profiles: ["Evolution", "Refined", "Update"], story: "As you change, your scent can change with you. For returning bespoke clients securely stored in our physical ledgers, we can adjust the formula—adding depth for winter or freshness for summer." },
-      { id: "bes-6", nameAr: "طقم التفصيل الكامل", nameEn: "Full Bespoke Package", desc: "Consultation, creation, luxury packaging,\nand lifetime reformulation rights.", stars: 5, price: "2,500", unit: "AED (Starting)", badge: "Ultimate", options: [{weight: "Full Experience", price: 2500}], profiles: ["Comprehensive", "Lifetime", "Luxury"], story: "The absolute pinnacle of our offering. Includes the consultation, three iterations, a 100ml crystal flacon engraved with your name, a travel size, and your formula permanently archived." }
+      { id: 'private-consult', name_ar: 'الجلسة الخاصة', name_en: 'Private Consultation', description: 'A one-on-one session with our founder. We do not ask what fragrance you want — we ask who you are. Your memories. Your home. Your journey. Then we translate all of it into scent.', tags: ['EXCLUSIVE', 'PERSONAL', 'ARTISAN'], price: 'From 500 AED', badge: 'Exclusive', rating: 5.0, icon: '🤝', wa_message: 'السلام عليكم، أرغب في حجز جلسة تفصيل عطر خاص' },
+      { id: 'identity-fragrance', name_ar: 'عطر الهوية', name_en: 'Identity Fragrance', description: 'Your memory, your personality, your roots — translated into a scent that is entirely yours. No catalogue number. No shared formula. A fragrance that exists in one version on this earth: on your skin.', tags: ['UNIQUE', 'IDENTITY', 'LIFETIME'], price: 'From 1,200 AED', badge: 'Limited Slots', rating: 5.0, icon: '🌟', wa_message: 'السلام عليكم، أرغب في إنشاء عطر هويتي الخاص' },
+      { id: 'bespoke-voucher', name_ar: 'هدية التفصيل', name_en: 'Bespoke Gift Voucher', description: 'Give someone the rarest gift imaginable: a scent created only for them. Not a bottle from a shelf — an experience. A consultation. A creation. A memory that fits no one else.', tags: ['GIFT', 'UNIQUE', 'PRECIOUS'], price: 'From 800 AED', badge: 'New', rating: 5.0, icon: '🎁', wa_message: 'السلام عليكم، أرغب في شراء هدية تفصيل عطر' },
+      { id: 'corporate-scent', name_ar: 'عطر الشركة', name_en: 'Corporate Signature Scent', description: 'A unique fragrance for your brand, hotel, or workspace. Scent is the most powerful form of brand memory — we help you own it. Guests will smell your lobby and remember it years later.', tags: ['CORPORATE', 'BRAND', 'SIGNATURE'], price: 'From 3,000 AED', badge: 'Exclusive', rating: 5.0, icon: '🏢', wa_message: 'السلام عليكم، أرغب في الاستفسار عن عطر الشركة المخصص' },
+      { id: 'renewal', name_ar: 'تجديد العطر', name_en: 'Fragrance Renewal', description: 'Already have a bespoke scent with us? A person evolves. So should their fragrance. Return to us and we will listen again — refine what you have become, and craft what comes next.', tags: ['EVOLUTION', 'RENEWAL', 'PERSONAL'], price: 'From 400 AED', badge: null, rating: 4.9, icon: '🔄', wa_message: 'السلام عليكم، أرغب في تجديد عطري المخصص' },
+      { id: 'full-bespoke', name_ar: 'طقم التفصيل الكامل', name_en: 'Full Bespoke Package', description: 'The ultimate expression of what we do. Consultation, creation, hand-crafted luxury packaging, personal calligraphy, and lifetime reformulation rights. Everything. For someone who deserves everything.', tags: ['ULTIMATE', 'COMPLETE', 'FOREVER'], price: 'From 2,500 AED', badge: 'Ultimate', rating: 5.0, icon: '💎', wa_message: 'السلام عليكم، أرغب في الاستفسار عن طقم التفصيل الكامل' }
     ]
   }
 };
 
-let overlayHistory = [];
+let currentCategory = null;
+let currentIdx = 0;
+let isAnimating = false;
 
-window.openCatalogue = function(categoryId) {
-  overlayHistory = [categoryId];
-  renderCategoryListing(categoryId);
-  showOverlay();
-};
+window.openCinematicCatalogue = function(categoryId) {
+  currentCategory = categoryId;
+  currentIdx = 0;
 
-window.openProduct = function(categoryId, productId) {
-  overlayHistory.push(productId);
-  const content = document.getElementById('catalogue-content');
-  content.style.opacity = '0';
-  
-  setTimeout(() => {
-    renderProductPage(categoryId, productId);
-    content.style.opacity = '1';
-    document.getElementById('catalogue-overlay').scrollTo({top:0, behavior:'smooth'});
-  }, 250);
-};
-
-window.goBack = function() {
-  overlayHistory.pop();
-  if (overlayHistory.length === 0) {
-    closeOverlay();
-  } else {
-    // If it's a category id (currently only depth of 2 so item 0 is cat)
-    const prevId = overlayHistory[overlayHistory.length - 1];
-    const content = document.getElementById('catalogue-content');
-    content.style.opacity = '0';
-    setTimeout(() => {
-      renderCategoryListing(prevId);
-      content.style.opacity = '1';
-      document.getElementById('catalogue-overlay').scrollTo({top:0, behavior:'smooth'});
-    }, 250);
-  }
-};
-
-window.closeOverlay = function() {
-  const overlay = document.getElementById('catalogue-overlay');
-  overlay.style.opacity = '0';
-  setTimeout(() => {
-    overlay.classList.add('hidden');
-    document.body.style.overflow = '';
-    // scroll back to collections
-    document.getElementById('collections').scrollIntoView({behavior: 'smooth'});
-  }, 400);
-};
-
-window.showOverlay = function() {
-  const overlay = document.getElementById('catalogue-overlay');
+  const overlay = document.getElementById('cinematic-overlay');
   overlay.classList.remove('hidden');
   document.body.style.overflow = 'hidden';
-  // Trigger reflow
-  void overlay.offsetWidth;
+  
+  // Fade in background smoothly
+  void overlay.offsetWidth; // Force reflow
   overlay.style.opacity = '1';
-  overlay.scrollTo({top:0});
+
+  // Build Dots Navigation
+  const products = cinematicData[categoryId].products;
+  const dotsContainer = document.getElementById('c-dots');
+  dotsContainer.innerHTML = products.map((_, i) => 
+      `<div class="nav-dot ${i === 0 ? 'active' : ''}" onclick="goToCinematicSlide(${i})"></div>`
+  ).join('');
+
+  // Initial Render
+  setTimeout(() => {
+     renderCinematicProduct(categoryId, 0, 'none');
+     overlay.focus();
+  }, 200); // Small delay to let overlay fade in before content starts stagger
 };
 
-function renderCategoryListing(categoryId) {
-  const data = catalogueData[categoryId];
-  const content = document.getElementById('catalogue-content');
-  const breadcrumb = document.getElementById('overlay-breadcrumb');
-  
-  breadcrumb.innerHTML = `<span onclick="closeOverlay()" class="cursor-pointer hover:text-brand-gold transition-colors">Collections</span> <span class="mx-2 text-brand-gold">/</span> <span>${data.nameEn}</span>`;
-  
-  document.getElementById('overlay-back-btn').style.display = 'none';
+window.closeCinematicOverlay = function() {
+    const overlay = document.getElementById('cinematic-overlay');
+    overlay.style.opacity = '0';
+    setTimeout(() => {
+        overlay.classList.add('hidden');
+        document.body.style.overflow = '';
+        document.getElementById('collections').scrollIntoView({behavior: 'smooth'});
+        currentCategory = null;
+    }, 400); // matches opacity transition
+};
 
-  let productsHTML = data.products.map(p => `
-    <div class="reveal group border border-brand-gold/20 hover:border-brand-gold bg-brand-dark rounded-sm transition-all duration-500 overflow-hidden relative cursor-pointer" onclick="openProduct('${categoryId}', '${p.id}')">
-      ${p.badge ? `<span class="absolute top-4 left-4 bg-brand-gold text-brand-dark text-[10px] font-bold px-2 py-0.5 z-10 uppercase tracking-widest">${p.badge}</span>` : ''}
-      
-      <div class="relative w-full aspect-[3/4] bg-[radial-gradient(circle_at_center,rgba(184,150,46,0.1),transparent)] flex items-center justify-center overflow-hidden">
-        <div class="absolute inset-0 opacity-0 group-hover:opacity-100 bg-gradient-to-tr from-transparent via-brand-gold/10 to-transparent transition-opacity duration-1000 transform -translate-x-full group-hover:translate-x-full" style="transition-duration: 1.5s;"></div>
-        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" class="w-12 h-12 text-brand-gold opacity-50 group-hover:opacity-100 group-hover:scale-110 transition-all duration-500" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M12 22a7 7 0 0 0 7-7c0-2-1-3.9-3-5.5s-3.5-4-4-6.5c-.5 2.5-2 4.9-4 6.5C6 11.1 5 13 5 15a7 7 0 0 0 7 7z"/></svg>
-      </div>
-      
-      <div class="p-6 flex flex-col items-center text-center border-t border-brand-gold/10">
-        <h3 class="font-arabic text-2xl mb-1">${p.nameAr}</h3>
-        <h4 class="font-display italic text-brand-gold text-sm mb-3">${p.nameEn}</h4>
-        <p class="text-brand-text-muted text-xs leading-relaxed mb-4 h-10 line-clamp-2">${p.desc}</p>
-        
-        <div class="flex text-brand-gold mb-4">
-          ${[...Array(5)].map((_, i) => `<svg class="w-3 h-3 ${i<p.stars?'fill-current':''}" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg>`).join('')}
-        </div>
-        
-        <div class="font-mono font-bold text-brand-gold mb-6">${p.price} <span class="text-[10px] font-modern text-brand-cream/50">${p.unit}</span></div>
-        
-        <div class="w-full grid grid-cols-2 gap-2 text-xs font-modern uppercase tracking-widest">
-            <button class="border border-brand-gold text-brand-gold py-3 hover:bg-brand-gold hover:text-brand-dark transition-colors" onclick="event.stopPropagation(); window.open('https://wa.me/971547411813?text=السلام عليكم، أرغب في طلب: ${encodeURIComponent(p.nameAr)}', '_blank')">اطلب الآن</button>
-            <button class="bg-brand-gold/10 text-brand-cream py-3 hover:bg-brand-gold hover:text-brand-dark transition-colors" onclick="openProduct('${categoryId}', '${p.id}')">Details</button>
-        </div>
-      </div>
-    </div>
-  `).join('');
-
-  content.innerHTML = `
-    <!-- Hero -->
-    <div class="relative py-24 flex flex-col items-center justify-center text-center overflow-hidden border-b border-brand-gold/20">
-      <div class="absolute inset-0 bg-[radial-gradient(circle_at_50%_50%,rgba(184,150,46,0.1)_0%,transparent_60%)]"></div>
-      
-      <div class="relative z-10 px-6 max-w-3xl reveal active">
-        <h1 class="font-arabic text-6xl md:text-7xl mb-2 text-brand-cream drop-shadow-lg">${data.nameAr}</h1>
-        <h2 class="font-display italic text-2xl md:text-3xl text-brand-gold mb-8">${data.nameEn}</h2>
-        
-        <div class="flex items-center justify-center gap-4 mb-8">
-            <div class="h-[1px] w-12 bg-brand-gold/30"></div>
-            <span class="text-brand-gold text-[10px]">◆</span>
-            <div class="h-[1px] w-12 bg-brand-gold/30"></div>
-        </div>
-
-        <p class="font-body text-lg md:text-xl text-brand-cream/90 whitespace-pre-line leading-relaxed mb-10 max-w-2xl mx-auto">${data.heroCopy}</p>
-        
-        <div class="inline-block border border-brand-gold/50 px-6 py-2 rounded-full font-mono text-sm tracking-widest text-brand-gold mb-16 shadow-[0_0_20px_rgba(184,150,46,0.1)]">
-            ${data.pricePill}
-        </div>
-
-        <div class="absolute bottom-4 left-1/2 transform -translate-x-1/2 text-brand-gold animate-bounce">
-            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="w-6 h-6"><path d="m6 9 6 6 6-6"/></svg>
-        </div>
-      </div>
-    </div>
-
-    <!-- Filter Bar -->
-    <div class="max-w-7xl mx-auto px-6 py-12">
-        <div class="flex flex-wrap justify-center gap-3 md:gap-4 mb-12">
-            <button class="px-6 py-2 rounded-full border border-brand-gold bg-brand-gold text-brand-dark text-xs uppercase tracking-widest font-modern font-bold">All</button>
-            <button class="px-6 py-2 rounded-full border border-brand-gold/30 text-brand-cream/70 hover:border-brand-gold hover:text-brand-cream text-xs uppercase tracking-widest font-modern transition-all">Light</button>
-            <button class="px-6 py-2 rounded-full border border-brand-gold/30 text-brand-cream/70 hover:border-brand-gold hover:text-brand-cream text-xs uppercase tracking-widest font-modern transition-all">Deep</button>
-            <button class="px-6 py-2 rounded-full border border-brand-gold/30 text-brand-cream/70 hover:border-brand-gold hover:text-brand-cream text-xs uppercase tracking-widest font-modern transition-all">Aged</button>
-            <button class="px-6 py-2 rounded-full border border-brand-gold/30 text-brand-cream/70 hover:border-brand-gold hover:text-brand-cream text-xs uppercase tracking-widest font-modern transition-all">Gift Grade</button>
-        </div>
-
-        <!-- Grid -->
-        <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
-            ${productsHTML}
-        </div>
-    </div>
-  `;
-  
-  setTimeout(initReveals, 50);
-}
-
-window.selectOption = function(btn, price) {
-    const parent = btn.parentElement;
-    parent.querySelectorAll('button').forEach(b => {
-        b.classList.remove('bg-brand-gold', 'text-brand-dark', 'font-bold');
-        b.classList.add('text-brand-cream/80', 'hover:border-brand-gold');
-    });
-    btn.classList.add('bg-brand-gold', 'text-brand-dark', 'font-bold');
-    btn.classList.remove('text-brand-cream/80', 'hover:border-brand-gold');
-    document.getElementById('dynamic-price').innerText = price;
-}
-
-function renderProductPage(categoryId, productId) {
-  const catData = catalogueData[categoryId];
-  const p = catData.products.find(x => x.id === productId);
-  const content = document.getElementById('catalogue-content');
-  const breadcrumb = document.getElementById('overlay-breadcrumb');
-  
-  breadcrumb.innerHTML = `<span onclick="closeOverlay()" class="cursor-pointer hover:text-brand-gold transition-colors">Collections</span> <span class="mx-2 text-brand-gold/50">/</span> <span onclick="goBack()" class="cursor-pointer hover:text-brand-gold transition-colors">${catData.nameEn}</span> <span class="mx-2 text-brand-gold/50">/</span> <span class="text-brand-gold">${p.nameEn}</span>`;
-  
-  document.getElementById('overlay-back-btn').style.display = 'flex';
-
-  let optionsHTML = p.options.map((opt, i) => `
-    <button onclick="selectOption(this, '${opt.price}')" class="flex-1 py-3 border border-brand-gold/30 text-xs font-modern tracking-widest uppercase transition-all ${i===0 ? 'bg-brand-gold text-brand-dark font-bold' : 'text-brand-cream/80 hover:border-brand-gold'}">
-        ${opt.weight}
-    </button>
-  `).join('');
-
-  content.innerHTML = `
-    <div class="max-w-7xl mx-auto px-6 py-12 lg:py-20">
-      <div class="grid grid-cols-1 lg:grid-cols-2 gap-16">
-        
-        <!-- Left: Visual -->
-        <div class="reveal active flex flex-col gap-6">
-            <div class="relative w-full aspect-[3/4] border border-brand-gold/20 bg-gradient-to-br from-[#1A1408] to-[#0D0A05] flex items-center justify-center overflow-hidden group">
-                ${p.badge ? `<span class="absolute top-6 left-6 bg-brand-gold text-brand-dark text-xs font-bold px-3 py-1 z-10 uppercase tracking-widest">${p.badge}</span>` : ''}
-                <div class="absolute inset-0 bg-[radial-gradient(circle_at_center,rgba(184,150,46,0.15),transparent_70%)]"></div>
-                
-                <div class="absolute inset-0 opacity-0 group-hover:opacity-100 bg-gradient-to-tr from-transparent via-brand-gold/10 to-transparent transition-opacity duration-1000 transform -translate-x-full group-hover:translate-x-full" style="transition-duration: 1.5s;"></div>
-
-                <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" class="w-32 h-32 text-brand-gold drop-shadow-[0_0_30px_rgba(184,150,46,0.3)] group-hover:scale-105 transition-transform duration-700" stroke="currentColor" stroke-width="1" stroke-linecap="round" stroke-linejoin="round"><path d="M12 22a7 7 0 0 0 7-7c0-2-1-3.9-3-5.5s-3.5-4-4-6.5c-.5 2.5-2 4.9-4 6.5C6 11.1 5 13 5 15a7 7 0 0 0 7 7z"/></svg>
-            </div>
-            <div class="flex justify-center gap-3">
-                <div class="w-2 h-2 rounded-full bg-brand-gold cursor-pointer"></div>
-                <div class="w-2 h-2 rounded-full bg-brand-gold/30 hover:bg-brand-gold/60 cursor-pointer transition-colors"></div>
-                <div class="w-2 h-2 rounded-full bg-brand-gold/30 hover:bg-brand-gold/60 cursor-pointer transition-colors"></div>
-            </div>
-        </div>
-
-        <!-- Right: Info -->
-        <div class="reveal active flex flex-col font-body">
-            
-            <div class="block md:hidden mb-6 text-xs font-display italic text-brand-cream/60">
-                Collections <span class="mx-1">/</span> ${catData.nameEn} <span class="mx-1">/</span> <span class="text-brand-gold">${p.nameEn}</span>
-            </div>
-
-            <h1 class="font-arabic text-5xl md:text-6xl mb-2 text-brand-cream">${p.nameAr}</h1>
-            <h2 class="font-display italic text-2xl text-brand-gold mb-4">${p.nameEn}</h2>
-            
-            <div class="flex items-center gap-2 mb-8">
-                <div class="flex text-brand-gold">
-                    ${[...Array(5)].map((_, i) => `<svg class="w-4 h-4 ${i<p.stars?'fill-current':''}" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg>`).join('')}
-                </div>
-                <span class="text-brand-cream/60 text-sm font-arabic-sans">47 تقييم</span>
-            </div>
-
-            <div class="flex items-center gap-4 mb-8">
-                <div class="h-[1px] flex-grow bg-brand-gold/10"></div>
-                <span class="text-brand-gold text-[10px]">◆</span>
-                <div class="h-[1px] flex-grow bg-brand-gold/10"></div>
-            </div>
-
-            <p class="text-brand-cream/90 text-lg leading-relaxed mb-8 whitespace-pre-line">${p.story}</p>
-
-            <div class="flex items-center gap-4 mb-10">
-                <div class="h-[1px] flex-grow bg-brand-gold/10"></div>
-                <span class="text-brand-gold text-[10px]">◆</span>
-                <div class="h-[1px] flex-grow bg-brand-gold/10"></div>
-            </div>
-
-            <div class="flex flex-wrap gap-3 mb-10">
-                ${p.profiles.map(prof => `<span class="border border-brand-gold/40 px-4 py-1.5 rounded-full text-xs font-modern uppercase tracking-widest text-brand-gold">${prof}</span>`).join('')}
-            </div>
-
-            <div class="flex gap-4 mb-8">
-                ${optionsHTML}
-            </div>
-
-            <div class="mb-10 flex flex-col">
-                <div class="font-mono text-4xl font-bold text-brand-gold mb-1"><span id="dynamic-price">${p.options[0].price}</span> <span class="text-lg text-brand-cream/50">AED</span></div>
-                <div class="text-[#8A7550] text-sm italic font-display">Free delivery above 300 AED</div>
-            </div>
-
-            <div class="flex flex-col gap-4">
-                <button onclick="window.open('https://wa.me/971547411813?text=السلام عليكم، أرغب في طلب: ${encodeURIComponent(p.nameAr)}', '_blank')" class="relative overflow-hidden w-full bg-brand-gold text-brand-dark py-5 rounded-sm font-bold text-lg hover:bg-brand-gold-light transition-colors flex justify-center items-center gap-3">
-                    <span class="absolute inset-0 bg-white/20 animate-pulse opacity-0 hover:opacity-100 transition-opacity"></span>
-                    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="w-6 h-6"><path d="M7.9 20A9 9 0 1 0 4 16.1L2 22Z"/><path d="M8 12h.01"/><path d="M12 12h.01"/><path d="M16 12h.01"/></svg>
-                    <span class="font-arabic-sans text-xl">اطلب عبر واتساب</span>
-                    <span class="font-modern font-normal uppercase text-sm opacity-60">|</span>
-                    <span class="font-modern uppercase text-sm tracking-wider">Order via WhatsApp</span>
-                </button>
-                
-                <button onclick="window.open('https://wa.me/971547411813?text=السلام عليكم، لدي استفسار عن: ${encodeURIComponent(p.nameAr)}', '_blank')" class="w-full border border-brand-gold py-4 rounded-sm hover:bg-brand-gold/10 transition-colors flex justify-center items-center gap-3">
-                    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="w-5 h-5 text-brand-gold"><path d="M7.9 20A9 9 0 1 0 4 16.1L2 22Z"/><path d="M8 12h.01"/><path d="M12 12h.01"/><path d="M16 12h.01"/></svg>
-                    <span class="font-arabic-sans text-brand-gold text-lg">استفسر عن المنتج</span>
-                    <span class="font-modern font-normal uppercase text-brand-gold/60 text-xs">|</span>
-                    <span class="font-modern uppercase text-xs tracking-wider text-brand-gold">Ask a Question</span>
-                </button>
-            </div>
-            
-            ${p.badge === 'Rare' || p.badge === 'Limited' || p.badge === 'Limited Slots' ? `
-              <div class="mt-6 text-center text-[#8A7550] text-sm italic font-display">
-                  ⚡ Only 3 pieces remaining at this grade
-              </div>
-            ` : ''}
-
-        </div>
-      </div>
-    </div>
+function renderCinematicProduct(catId, idx, direction) {
+    if (isAnimating) return;
     
-    <!-- Below The Fold -->
-    <div class="border-t border-brand-gold/20 bg-[#080603] py-20">
-        <div class="max-w-3xl mx-auto px-6 text-center reveal">
-            <h3 class="font-arabic text-4xl md:text-5xl text-brand-gold mb-4 leading-relaxed">"رائحة تحكي ما لا تستطيع الكلمات قوله"</h3>
-            <p class="font-display italic text-xl text-brand-cream/80 mb-10">"A scent that speaks what words cannot."</p>
-            <p class="font-body text-lg text-brand-cream leading-relaxed">${p.desc} We source only the finest raw ingredients globally, refining them in the Emirates to create an unparalleled sensory signature.</p>
-        </div>
-    </div>
+    const cat = cinematicData[catId];
+    const p = cat.products[idx];
+    const total = cat.products.length;
 
-    <div class="max-w-4xl mx-auto px-6 py-20 border-t border-brand-gold/10">
-        <div class="space-y-4">
-            <details class="group bg-brand-dark border border-brand-gold/20 p-6 cursor-pointer">
-                <summary class="flex justify-between items-center outline-none">
-                    <span class="font-arabic text-2xl text-brand-cream">طريقة الاستخدام <span class="font-modern text-sm uppercase tracking-widest text-brand-gold ml-2 font-normal">How to Use</span></span>
-                    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="w-5 h-5 text-brand-gold group-open:rotate-180 transition-transform"><path d="m6 9 6 6 6-6"/></svg>
-                </summary>
-                <p class="mt-6 text-brand-cream/70 leading-relaxed font-body text-lg">Apply directly to clean, dry pulse points: wrists, inner elbows, and neck. Do not rub the oil into the skin, allow it to absorb naturally for maximum longevity.</p>
-            </details>
-            <details class="group bg-brand-dark border border-brand-gold/20 p-6 cursor-pointer">
-                <summary class="flex justify-between items-center outline-none">
-                    <span class="font-arabic text-2xl text-brand-cream">ملاحظات العطر <span class="font-modern text-sm uppercase tracking-widest text-brand-gold ml-2 font-normal">Scent Notes</span></span>
-                    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="w-5 h-5 text-brand-gold group-open:rotate-180 transition-transform"><path d="m6 9 6 6 6-6"/></svg>
-                </summary>
-                <div class="mt-6 grid grid-cols-3 gap-4 text-center">
-                    <div class="p-4 bg-[rgba(184,150,46,0.05)] border border-brand-gold/10">
-                        <div class="font-modern text-xs text-brand-gold uppercase tracking-widest mb-2">Top</div>
-                        <div class="font-body text-brand-cream">${p.profiles[0] || 'Spicy'} Notes</div>
-                    </div>
-                    <div class="p-4 bg-[rgba(184,150,46,0.05)] border border-brand-gold/10">
-                        <div class="font-modern text-xs text-brand-gold uppercase tracking-widest mb-2">Heart</div>
-                        <div class="font-body text-brand-cream">${p.profiles[1] || 'Floral'} Woods</div>
-                    </div>
-                    <div class="p-4 bg-[rgba(184,150,46,0.05)] border border-brand-gold/10">
-                        <div class="font-modern text-xs text-brand-gold uppercase tracking-widest mb-2">Base</div>
-                        <div class="font-body text-brand-cream">${p.profiles[2] || 'Deep'} Resin</div>
-                    </div>
-                </div>
-            </details>
-            <details class="group bg-brand-dark border border-brand-gold/20 p-6 cursor-pointer">
-                <summary class="flex justify-between items-center outline-none">
-                    <span class="font-arabic text-2xl text-brand-cream">المنشأ والتقييم <span class="font-modern text-sm uppercase tracking-widest text-brand-gold ml-2 font-normal">Origin & Grade</span></span>
-                    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="w-5 h-5 text-brand-gold group-open:rotate-180 transition-transform"><path d="m6 9 6 6 6-6"/></svg>
-                </summary>
-                <p class="mt-6 text-brand-cream/70 leading-relaxed font-body text-lg">Sourced exclusively from ethically managed forests and curated by our master perfumers in the UAE. Certified Grade A premium composition.</p>
-            </details>
-        </div>
-    </div>
-  `;
-  
-  setTimeout(initReveals, 50);
+    const visualBox = document.getElementById('cinematic-visual-box');
+    const infoBox = document.getElementById('cinematic-info-box');
+    const vignette = document.getElementById('cinematic-vignette');
+    const iconBase = document.getElementById('cinematic-icon');
+
+    // Start transition-out
+    if (direction !== 'none') {
+        isAnimating = true;
+        vignette.classList.add('active'); // fade to black vignette mid transition
+        
+        const outClass = direction === 'next' ? 'slide-out-left' : 'slide-out-right';
+        visualBox.classList.remove('slide-active', 'slide-in-right', 'slide-in-left');
+        visualBox.classList.add(outClass);
+        
+        infoBox.classList.remove('slide-active', 'slide-in-right', 'slide-in-left');
+        infoBox.classList.add(outClass);
+        iconBase.classList.remove('show');
+        
+        setTimeout(() => {
+            // Data swap halfway through
+            updateDOMData(cat, p, idx, total);
+            
+            // Set starting point for incoming content
+            visualBox.classList.remove(outClass);
+            infoBox.classList.remove(outClass);
+            
+            const inClass = direction === 'next' ? 'slide-in-right' : 'slide-in-left';
+            visualBox.classList.add(inClass);
+            infoBox.classList.add(inClass);
+            
+            void visualBox.offsetWidth; // Force Reflow
+
+            // Bring in new content
+            visualBox.classList.remove(inClass);
+            visualBox.classList.add('slide-active');
+            infoBox.classList.remove(inClass);
+            infoBox.classList.add('slide-active');
+            
+            vignette.classList.remove('active');
+            triggerStaggers();
+            
+            setTimeout(() => {
+                isAnimating = false;
+            }, 500); // 500ms slide duration
+
+        }, 350); // 350ms fade out
+
+    } else {
+        // Initial / Direct Render (no slide physics)
+        updateDOMData(cat, p, idx, total);
+        visualBox.classList.remove('slide-out-left', 'slide-out-right', 'slide-in-left', 'slide-in-right');
+        infoBox.classList.remove('slide-out-left', 'slide-out-right', 'slide-in-left', 'slide-in-right');
+        visualBox.classList.add('slide-active');
+        infoBox.classList.add('slide-active');
+        triggerStaggers();
+    }
+
+    // Update Dots
+    const dots = document.querySelectorAll('#c-dots .nav-dot');
+    dots.forEach((d, i) => {
+        if (i === idx) d.classList.add('active');
+        else d.classList.remove('active');
+    });
 }
 
-function initReveals() {
-  const reveals = document.querySelectorAll('#catalogue-overlay .reveal');
-  const observer = new IntersectionObserver((entries) => {
-    entries.forEach(entry => {
-      if (entry.isIntersecting) entry.target.classList.add('active');
+function updateDOMData(cat, p, idx, total) {
+    document.getElementById('c-breadcrumb').innerHTML = `Collections <span class="text-brand-gold mx-2">◆</span> ${cat.title_en}`;
+    document.getElementById('c-index').innerHTML = `0${idx + 1} <span class="text-brand-cream/40">/ 0${total}</span>`;
+    document.getElementById('c-arabic').innerText = p.name_ar;
+    document.getElementById('c-english').innerText = p.name_en;
+    document.getElementById('c-desc').innerText = p.description;
+    
+    const tagsHtml = p.tags.map(t => `<span class="border border-brand-gold py-1 px-4 rounded-full text-[10px] md:text-xs tracking-[0.1em] text-brand-cream uppercase whitespace-nowrap">${t}</span>`).join('');
+    document.getElementById('c-tags').innerHTML = tagsHtml;
+    
+    document.getElementById('c-price').innerText = p.price;
+    document.getElementById('c-icon').innerText = p.icon;
+    
+    const badgeHtml = p.badge ? `<span class="text-brand-gold">${p.badge}</span> <span class="mx-2 opacity-50">|</span> ` : '';
+    document.getElementById('c-badge-container').innerHTML = `${badgeHtml} <span>Rating ${p.rating} / 5.0</span>`;
+
+    const waBtn = document.getElementById('cinematic-wa-btn');
+    waBtn.onclick = () => window.open(`https://wa.me/971547411813?text=${encodeURIComponent(p.wa_message)}`, '_blank');
+}
+
+function triggerStaggers() {
+    const staggers = document.querySelectorAll('.stagger-text');
+    const clip = document.getElementById('c-arabic');
+    const icon = document.getElementById('cinematic-icon');
+
+    // reset
+    staggers.forEach(s => s.classList.remove('show'));
+    clip.classList.remove('show');
+    icon.classList.remove('show');
+
+    void clip.offsetWidth;
+
+    // Trigger frame
+    requestAnimationFrame(() => {
+        staggers.forEach(s => s.classList.add('show'));
+        clip.classList.add('show');
+        icon.classList.add('show');
     });
-  }, { threshold: 0.1 });
-  reveals.forEach(el => {
-    el.classList.remove('active');
-    observer.observe(el);
-  });
+}
+
+
+// Nav Actions
+window.nextCinematicSlide = function() {
+    if(!currentCategory || isAnimating) return;
+    const cat = cinematicData[currentCategory];
+    if (currentIdx < cat.products.length - 1) {
+        currentIdx++;
+        renderCinematicProduct(currentCategory, currentIdx, 'next');
+    }
+}
+
+window.prevCinematicSlide = function() {
+    if(!currentCategory || isAnimating) return;
+    if (currentIdx > 0) {
+        currentIdx--;
+        renderCinematicProduct(currentCategory, currentIdx, 'prev');
+    }
+}
+
+window.goToCinematicSlide = function(i) {
+    if(!currentCategory || isAnimating || i === currentIdx) return;
+    const dir = i > currentIdx ? 'next' : 'prev';
+    currentIdx = i;
+    renderCinematicProduct(currentCategory, currentIdx, dir);
+}
+
+
+// --- Events ---
+
+// Keyboard Arrow Navigation & ESC
+document.addEventListener('keydown', (e) => {
+    if(!currentCategory) return;
+    if(e.key === 'ArrowRight' || e.key === 'ArrowDown') nextCinematicSlide();
+    if(e.key === 'ArrowLeft'  || e.key === 'ArrowUp')   prevCinematicSlide();
+    if(e.key === 'Escape') closeCinematicOverlay();
+});
+
+// Scroll Event (Debounced to avoid skipping multiple items)
+let wheelTimeout;
+document.getElementById('cinematic-overlay').addEventListener('wheel', (e) => {
+    if(isAnimating) return;
+    clearTimeout(wheelTimeout);
+    wheelTimeout = setTimeout(() => {
+        if(e.deltaY > 50) nextCinematicSlide();
+        if(e.deltaY < -50) prevCinematicSlide();
+    }, 50); // small debounce
+});
+
+// Touch Swipe Event for Mobile
+let touchStartX = 0;
+let touchEndX = 0;
+const overlayDiv = document.getElementById('cinematic-overlay');
+
+overlayDiv.addEventListener('touchstart', e => {
+    touchStartX = e.changedTouches[0].screenX;
+}, {passive: true});
+
+overlayDiv.addEventListener('touchend', e => {
+    touchEndX = e.changedTouches[0].screenX;
+    handleSwipe();
+}, {passive: true});
+
+function handleSwipe() {
+    const swipeThreshold = 50;
+    if (touchEndX < touchStartX - swipeThreshold) nextCinematicSlide(); // Swipe left -> Next
+    if (touchEndX > touchStartX + swipeThreshold) prevCinematicSlide(); // Swipe right -> Prev
+}
+
+// ----- Secondary Grid View Logic -----
+window.showCinematicGrid = function() {
+    const gridView = document.getElementById('cinematic-grid-view');
+    const cat = cinematicData[currentCategory];
+    
+    document.getElementById('grid-title-ar').innerText = cat.title_ar;
+    document.getElementById('grid-title-en').innerText = cat.title_en;
+
+    const cardsHtml = cat.products.map((p, i) => `
+        <div class="group relative bg-[#0D0A05] border border-brand-gold/20 p-6 flex flex-col items-center text-center cursor-pointer transition-all hover:border-brand-gold hover:-translate-y-1 overflow-hidden" onclick="goToCinematicSlide(${i}); hideCinematicGrid();">
+            <div class="absolute inset-0 bg-gradient-to-tr from-transparent via-brand-gold/5 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-700 pointer-events-none transform -translate-x-full group-hover:translate-x-full" style="transition-duration:1s"></div>
+            ${p.badge ? `<span class="absolute top-3 left-3 bg-brand-gold text-[#0D0A05] text-[10px] font-bold px-2 uppercase tracking-widest z-10">${p.badge}</span>` : ''}
+            <div class="text-5xl mb-4 group-hover:scale-110 transition-transform duration-500 text-brand-gold/80">${p.icon}</div>
+            <h4 class="font-arabic text-2xl text-brand-cream mb-1">${p.name_ar}</h4>
+            <h5 class="font-body italic text-brand-gold text-sm mb-4">${p.name_en}</h5>
+            <div class="font-mono font-bold text-brand-gold mt-auto">${p.price}</div>
+        </div>
+    `).join('');
+
+    document.getElementById('c-grid-container').innerHTML = cardsHtml;
+    
+    // Hide Slider View content immediately without closing whole overlay
+    document.getElementById('cinematic-slider-view').style.opacity = '0';
+    gridView.classList.remove('hidden');
+    gridView.classList.add('flex');
+    void gridView.offsetWidth; // reflow
+    gridView.style.opacity = '1';
+}
+
+window.hideCinematicGrid = function() {
+    const gridView = document.getElementById('cinematic-grid-view');
+    gridView.style.opacity = '0';
+    setTimeout(() => {
+        gridView.classList.add('hidden');
+        gridView.classList.remove('flex');
+        document.getElementById('cinematic-slider-view').style.opacity = '1';
+    }, 300);
 }
