@@ -1,0 +1,6 @@
+.DS_Store
+node_modules/
+dist/
+.shopify/
+config/settings_data.json
+# Add any other Shopify specific ignores if needed
