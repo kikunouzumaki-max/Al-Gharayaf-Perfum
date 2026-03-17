@@ -1,0 +1,13 @@
+{
+  "name": "al-gharayaf-perfume",
+  "version": "1.0.0",
+  "description": "High-performance luxurious storefront for Al Gharayaf Perfume",
+  "main": "index.html",
+  "scripts": {
+    "start": "npx serve .",
+    "build": "echo 'No build step required for static site'"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC"
+}
